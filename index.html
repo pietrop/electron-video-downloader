@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Video Downloader</title>
+</head>
+<body>
+  <h2>Video downloader</h2>
+  <p>Add link to a video you want to download</p>
+  <input type="text" id="urlInput" value="https://youtu.be/9UJzVLXmBG4"> <button id="btnLoad">Download</button>
+  <!-- select mp4, mp3, wav, mp3 -->
+
+  <!-- TODO: Add file formats from ffmpeg list? what does youtube-dl uses to write video? ffmpeg?-->
+  <select id="fileExtensionsSelect">
+    <option value="mp4">mp4</option>
+    <option value="mp3">mp3</option>
+    <option value="mov">mov</option>
+    <option value="wav">wav</option>
+  </select>
+
+  <br>
+  <div id="status"></div>
+
+  <br>
+  <div id="infoPanel"></div>
+
+  <br>
+  <!-- <h3>List of supported websites</h3> -->
+  <div id="listOfExtractors"></div>
+</body>
+
+<script>
+  // You can also require other files to run in this process
+  require('./renderer.js');
+  require('./list_extensions.js');
+ </script>
+ </html>
