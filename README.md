@@ -18,3 +18,4 @@ The app uses [youtube-dl]() under the hood, which means there is [a long list of
 - [ ] Check if app works on osx, windows, linux. (needs checking if `youtube-dl` works cross platform).
 - [ ] add a logo. 
 - [ ] refactor yotube downloader as separate component.
+- [ ] add possibility for user to set default destination folder, as opposed to `Movie` in home folder on osx.
