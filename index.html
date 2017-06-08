@@ -18,8 +18,11 @@
     <option value="wav">wav</option>
   </select>
 
+  <input type="checkbox" name="srt" value="srt" id="captionsCheckbox"> Download associated captions <br>
+
   <br>
   <div id="status"></div>
+  <div id="captionsStatus"></div>
 
   <br>
   <div id="infoPanel"></div>
@@ -32,6 +35,7 @@
 <script>
   // You can also require other files to run in this process
   require('./renderer.js');
-  require('./list_extensions.js');
+  // require('./list_extensions.js');
+
  </script>
  </html>

@@ -3,23 +3,33 @@
 // All of the Node.js APIs are available in this process.
 
 'use strict';
-const fs = require('fs');
-const youtubedl = require('youtube-dl');
-const {app} = require('electron').remote; 
+const fs                          = require('fs');
+const youtubedl                   = require('youtube-dl');
+const {app}                       = require('electron').remote; 
 
-var destDownloadFolder = app.getPath("videos");
+var destDownloadFolder            = app.getPath("videos");
 
-var urlInputElement 			         = document.getElementById("urlInput");
-var btnLoadElement 				         = document.getElementById("btnLoad");
+//elements
+var urlInputElement 			        = document.getElementById("urlInput");
+var btnLoadElement 				        = document.getElementById("btnLoad");
 var infoPanelElemnet 			        = document.getElementById("infoPanel");
 var statusElement 				        = document.getElementById("status");
 var fileExtensionsSelectElement 	= document.getElementById("fileExtensionsSelect");
+var captionsCheckboxElement       = document.getElementById("captionsCheckbox");
+var captionsStatusElement         = document.getElementById("captionsStatus");
 
-var downloadingMessage 			    = "Downloading ...";
-var finishedDownloadingMessage 	= "Finished downloading";
+// messages 
+var downloadingMessage 			      = 'Downloading ...';
+var finishedDownloadingMessage 	  = 'Finished downloading';
+var subtitlesDownloadedMessage    = 'subtitle files downloaded';
+var subtitlesDownloadingMessage   = 'Downloading subtitles files ...';
 //set element for  select file format. 
 // getter  for file element. 
 
+
+/**
+ * helper functions 
+ */
 function setInfoPanel(info){
   infoPanelElemnet.innerHTML = info;
 }
@@ -32,23 +42,50 @@ function getFileExtension(){
 	return fileExtensionsSelectElement.options[fileExtensionsSelectElement.selectedIndex].value;	
 }
 
+function getUrlInput(){
+  return urlInputElement.value; 
+
+}
+
+function captionStatus(){
+  return captionsCheckboxElement.checked; 
+}
+
+function setCaptionsStatus(status){
+ captionsStatusElement.innerHTML = status;  
+}
+
+/**
+ * main Download function  
+ */
 //https://youtu.be/pxcI5g2iUCg
 function downloadVideo(url, fileExtension){
-	setStatusElement(downloadingMessage);
+	//update user GUI on status of download
+  setStatusElement(downloadingMessage);
+
+  //setup download with youtube-dl
   var video = youtubedl(url,
     // Optional arguments passed to youtube-dl. 
     ['--format=18'],
     // Additional options can be given for calling `child_process.execFile()`. 
-    { cwd: __dirname });
+    { cwd: destDownloadFolder });
 
-
+  //listener for video info, to get file name 
   video.on('info', function(info) {
-   var destFilePathName= destDownloadFolder+"/"+info._filename+'.'+getFileExtension();
-
+    var destFilePathName ="";
+    //by default youtube video with youtbe-dl has a `mp4` extension when downloading, doing this check to avoid doubling up on this.
+    if(getFileExtension() === 'mp4'){
+        destFilePathName= destDownloadFolder+"/"+info._filename;
+     }else{
+       destFilePathName= destDownloadFolder+"/"+info._filename+'.'+getFileExtension();
+     }
+    
+    // update GUI with info on the file being downloaded 
    setInfoPanel('<strong>Filename: </strong>' + info._filename+'<br><strong>size: </strong>' + info.size+'<br>'+'<strong>Destination: </strong>'+destFilePathName);
 
     //TODO: sanilitse youtube file name so that it can be 
 
+    //save file locally 
     var writeStream = fs.createWriteStream(destFilePathName);
     video.pipe(writeStream);
   });
@@ -61,12 +98,52 @@ function downloadVideo(url, fileExtension){
 
 }
 
+/**
+ * function to download 
+ * TODO: provide language/languages as options, eg check boxes(?)
+ */
+//https://github.com/przemyslawpluta/node-youtube-dl#downloading-subtitles
+function downloadCaptions(url){
+  setCaptionsStatus(subtitlesDownloadingMessage);
+
+  var options = {
+    // Write automatic subtitle file (youtube only)
+    auto: false,
+    // Downloads all the available subtitles.
+    all: false,
+    // Languages of subtitles to download, separated by commas.
+    lang: 'en',
+    // The directory to save the downloaded files in.
+    cwd: destDownloadFolder,
+  };
+
+  youtubedl.getSubs(url, options, function(err, files) {
+    if (err) throw err;
+    setCaptionsStatus(subtitlesDownloadedMessage);
+    console.log('subtitle files downloaded:', files);
+  });
+
+
+}
+
+/**
+ * kickstart downloafing when user clicks download btn
+ */
 btnLoadElement.onclick = function(){
-  var inputValue = urlInputElement.value; 
+
+  var inputValue = getUrlInput();
   //TODO: some checks on validity of (url) url. 
   
   //TODO get user selected file extension 
   
   downloadVideo(inputValue, getFileExtension());
 
+  if(captionStatus()){
+    downloadCaptions(inputValue);
+  }
 };
+
+
+
+
+
