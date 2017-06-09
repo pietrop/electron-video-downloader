@@ -2,34 +2,73 @@
 <html>
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Video Downloader</title>
+
+<link href="css/bootstrap.min.css" rel="stylesheet" >
+
 </head>
 <body>
-  <h2>Video downloader</h2>
-  <p>Add link to a video you want to download</p>
-  <input type="text" id="urlInput" value="https://youtu.be/9UJzVLXmBG4"> <button id="btnLoad">Download</button>
+
+  <div class="container">
+  <h2  >Video downloader</h2>
+
+<form action="#">
+  <div >
+  <label for="text"  >Add link to a video you want to download</label>
+  <input  type="text" id="urlInput" class="form-control"  placeholder="https://youtu.be/9UJzVLXmBG4"> 
+  </div>
+</form>
+
+
+
+
+
   <!-- select mp4, mp3, wav, mp3 -->
 
+  <!-- Accent-colored raised button with ripple -->
+
+
+<br>
+
   <!-- TODO: Add file formats from ffmpeg list? what does youtube-dl uses to write video? ffmpeg?-->
-  <select id="fileExtensionsSelect">
-    <option value="mp4">mp4</option>
-    <option value="mp3">mp3</option>
-    <option value="mov">mov</option>
-    <option value="wav">wav</option>
-  </select>
+<div class="form-group">
+  <label for="select" class="control-label">Chose a file extension</label>
+    <select id="fileExtensionsSelect"  class="form-control">
+      <option value="mp4">mp4</option>
+      <option value="mp3">mp3</option>
+      <option value="mov">mov</option>
+      <option value="wav">wav</option>
+    </select>
 
-  <input type="checkbox" name="srt" value="srt" id="captionsCheckbox"> Download associated captions <br>
+ </div>
 
-  <br>
-  <div id="status"></div>
-  <div id="captionsStatus"></div>
 
-  <br>
-  <div id="infoPanel"></div>
 
-  <br>
+<div class="checkbox">
+<label for="checkbox-1">
+  <input id="captionsCheckbox" type="checkbox"   >
+  Download associated captions
+</label>
+</div>
+
+
+<br>
+<div class="form-group">
+  <button id="btnLoad"  class="btn btn-primary">Download</button>
+</div>
+
+  
+  <div id="status" ></div>
+
+<!--   <div id="captionsStatus" ></div> -->
+
+  <div id="infoPanel" ></div>
+
   <!-- <h3>List of supported websites</h3> -->
   <div id="listOfExtractors"></div>
+
+</div>
 </body>
 
 <script>

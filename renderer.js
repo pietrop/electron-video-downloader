@@ -35,7 +35,7 @@ function setInfoPanel(info){
 }
 
 function setStatusElement(status){
-	statusElement.innerHTML = status;
+	statusElement.innerHTML = "<div class='alert alert-dismissible alert-warning'>"+status+"</div>";
 }
 
 function getFileExtension(){
@@ -50,9 +50,10 @@ function getUrlInput(){
 function captionStatus(){
   return captionsCheckboxElement.checked; 
 }
-
+//set user info in GUI on captions 
 function setCaptionsStatus(status){
- captionsStatusElement.innerHTML = status;  
+
+    captionsStatusElement.innerHTML = "<div class='alert alert-dismissible alert-warning'>"+status+"</div>";
 }
 
 /**
@@ -62,11 +63,14 @@ function setCaptionsStatus(status){
 function downloadVideo(url, fileExtension){
 	//update user GUI on status of download
   setStatusElement(downloadingMessage);
+  // reset captions status
+  setCaptionsStatus('...');
+
 
   //setup download with youtube-dl
   var video = youtubedl(url,
     // Optional arguments passed to youtube-dl. 
-    ['--format=18'],
+    ['--format=best'],
     // Additional options can be given for calling `child_process.execFile()`. 
     { cwd: destDownloadFolder });
 
@@ -75,13 +79,19 @@ function downloadVideo(url, fileExtension){
     var destFilePathName ="";
     //by default youtube video with youtbe-dl has a `mp4` extension when downloading, doing this check to avoid doubling up on this.
     if(getFileExtension() === 'mp4'){
-        destFilePathName= destDownloadFolder+"/"+info._filename;
+      //`info._filename` has odd extension in some vimeo video, so this is a patch for that 
+      if(info._filename.split(".")[1] == "unknown_video" ){
+        destFilePathName= destDownloadFolder+"/"+info._filename.split(".")[1]+".mp4";
+      }else{
+           destFilePathName= destDownloadFolder+"/"+info._filename;
+      }
+     
      }else{
        destFilePathName= destDownloadFolder+"/"+info._filename+'.'+getFileExtension();
      }
     
     // update GUI with info on the file being downloaded 
-   setInfoPanel('<strong>Filename: </strong>' + info._filename+'<br><strong>size: </strong>' + info.size+'<br>'+'<strong>Destination: </strong>'+destFilePathName);
+   setInfoPanel('<div class="alert alert-dismissible alert-success"><strong>Filename: </strong>' + info._filename+'<br><strong>size: </strong>' + info.size+'<br>'+'<strong>Destination: </strong>'+destFilePathName+"</div>");
 
     //TODO: sanilitse youtube file name so that it can be 
 

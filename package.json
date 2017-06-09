@@ -5,7 +5,6 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-
     "pack": "build --dir",
     "pack:mac": "build --dir --mac --x64",
     "pack:linux": "build --dir --linux --x64",
@@ -15,7 +14,6 @@
     "build:mac_app_store": "echo 'Mac App Store Option Not currently implemented'",
     "build:win": "build --win nsis-web --x64",
     "build:linux": "build --linux  --x64"
-
   },
   "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [
@@ -26,7 +24,7 @@
     "downloader",
     "os x"
   ],
-    "build": {
+  "build": {
     "appId": "org.video.downaloader",
     "asar": false,
     "files": [
@@ -35,9 +33,7 @@
     "copyright": "2017 Pietro Passarelli",
     "mac": {
       "category": "public.app-category.productivity",
-      "files": [
-    
-      ]
+      "files": []
     },
     "linux": {
       "category": "",
@@ -50,9 +46,7 @@
         "rpm"
       ],
       "maintainer": "Pietro Passarelli <pietro.passarelli@gmail.com>",
-      "files": [
-       
-      ]
+      "files": []
     },
     "deb": {
       "synopsis": "Video downaloader"
@@ -78,7 +72,7 @@
     "win": {
       "target": "nsis",
       "icon": "build/icon.ico",
-        "files": [
+      "files": [
         "node_modules/ffmpeg-static/bin/win/${arch}/ffmpeg",
         "!node_modules/ffmpeg-static/bin/win/ia32${/*}",
         "!node_modules/ffmpeg-static/bin/linux${/*}",
