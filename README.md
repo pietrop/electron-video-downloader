@@ -4,7 +4,7 @@ An app that quickly downloads video from youtube.
 
 The app uses [youtube-dl](https://rg3.github.io/youtube-dl/) under the hood, which means there is [a long list of supported sites](youtube-dl-supported-extractors.md). 
 
-![sample](language_tutor.png)
+![sample](/sample.png)
 
 ## possible todo to extend the app: 
 - [x] add check box option for [downloading associated subtitles](https://github.com/przemyslawpluta/node-youtube-dl#downloading-subtitles). 
