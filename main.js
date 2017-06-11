@@ -16,7 +16,7 @@ function createWindow () {
 
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
-    pathname: path.join(__dirname,'app', 'index.html'),
+    pathname: path.join(__dirname, 'index.html'),
     protocol: 'file:',
     slashes: true
   }))
@@ -79,13 +79,14 @@ function createWindow () {
         submenu: [
           {
             label: 'Project Page',
-            click () { require('electron').shell.openExternal('https://autoEdit.io') }
+            click () { require('electron').shell.openExternal('https://github.com/pietrop/electron-video-downloader') }
           },
           {
-            label: 'User Manual',
-            click () { require('electron').shell.openExternal('https://pietropassarelli.gitbooks.io/autoedit2-user-manual/content/') }
+            label: 'Raise an issue',
+            click () { require('electron').shell.openExternal('https://github.com/pietrop/electron-video-downloader/issues') }
           }
-        ]}
+        ]
+      }
     ];
 
     Menu.setApplicationMenu(Menu.buildFromTemplate(template));

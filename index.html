@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video Downloader</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet" >
+</head>
+<body>
+
+  <div class="container">
+    <h2  >Video downloader</h2>
+
+    <form action="#">
+      <div >
+        <label for="text"  >Add link to a video you want to download</label>
+        <input  type="text" id="urlInput" class="form-control"  placeholder="https://youtu.be/9UJzVLXmBG4"> 
+      </div>
+    </form>
+
+    <br>
+    <div class="checkbox">
+      <label for="checkbox-1">
+        <input id="captionsCheckbox" type="checkbox"   >
+        Download associated captions
+      </label>
+    </div>
+
+
+    <br>
+    <div class="form-group">
+      <button id="btnLoad"  class="btn btn-primary">Download</button>
+    </div>
+
+    <div id="status" ></div>
+
+    <div id="captionsStatus" ></div>
+
+    <div id="infoPanel" ></div>
+
+    <!-- <h3>List of supported websites</h3> -->
+    <div id="listOfExtractors"></div>
+
+  </div>
+</body>
+
+<script>
+  // You can also require other files to run in this process
+  require('./renderer.js');
+</script>
+</html>

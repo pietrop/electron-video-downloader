@@ -4,6 +4,7 @@
 
 'use strict';
 const fs                          = require('fs');
+const path                        = require('path');
 const youtubedl                   = require('youtube-dl');
 const {app}                       = require('electron').remote; 
 
@@ -14,7 +15,6 @@ var urlInputElement 			        = document.getElementById("urlInput");
 var btnLoadElement 				        = document.getElementById("btnLoad");
 var infoPanelElemnet 			        = document.getElementById("infoPanel");
 var statusElement 				        = document.getElementById("status");
-var fileExtensionsSelectElement 	= document.getElementById("fileExtensionsSelect");
 var captionsCheckboxElement       = document.getElementById("captionsCheckbox");
 var captionsStatusElement         = document.getElementById("captionsStatus");
 
@@ -38,9 +38,6 @@ function setStatusElement(status){
 	statusElement.innerHTML = "<div class='alert alert-dismissible alert-warning'>"+status+"</div>";
 }
 
-function getFileExtension(){
-	return fileExtensionsSelectElement.options[fileExtensionsSelectElement.selectedIndex].value;	
-}
 
 function getUrlInput(){
   return urlInputElement.value; 
@@ -52,7 +49,7 @@ function captionStatus(){
 }
 //set user info in GUI on captions 
 function setCaptionsStatus(status){
-
+  //TODO: status update for captions temporarily disabled. 
     captionsStatusElement.innerHTML = "<div class='alert alert-dismissible alert-warning'>"+status+"</div>";
 }
 
@@ -60,7 +57,7 @@ function setCaptionsStatus(status){
  * main Download function  
  */
 //https://youtu.be/pxcI5g2iUCg
-function downloadVideo(url, fileExtension){
+function downloadVideo(url){
 	//update user GUI on status of download
   setStatusElement(downloadingMessage);
   // reset captions status
@@ -70,28 +67,18 @@ function downloadVideo(url, fileExtension){
   //setup download with youtube-dl
   var video = youtubedl(url,
     // Optional arguments passed to youtube-dl. 
+    // see here for options https://github.com/rg3/youtube-dl/blob/master/README.md
     ['--format=best'],
     // Additional options can be given for calling `child_process.execFile()`. 
     { cwd: destDownloadFolder });
 
   //listener for video info, to get file name 
   video.on('info', function(info) {
-    var destFilePathName ="";
-    //by default youtube video with youtbe-dl has a `mp4` extension when downloading, doing this check to avoid doubling up on this.
-    if(getFileExtension() === 'mp4'){
-      //`info._filename` has odd extension in some vimeo video, so this is a patch for that 
-      if(info._filename.split(".")[1] == "unknown_video" ){
-        destFilePathName= destDownloadFolder+"/"+info._filename.split(".")[1]+".mp4";
-      }else{
-           destFilePathName= destDownloadFolder+"/"+info._filename;
-      }
-     
-     }else{
-       destFilePathName= destDownloadFolder+"/"+info._filename+'.'+getFileExtension();
-     }
-    
+
+    var destFilePathName =  path.join(destDownloadFolder,info._filename); 
+  
     // update GUI with info on the file being downloaded 
-   setInfoPanel('<div class="alert alert-dismissible alert-success"><strong>Filename: </strong>' + info._filename+'<br><strong>size: </strong>' + info.size+'<br>'+'<strong>Destination: </strong>'+destFilePathName+"</div>");
+    setInfoPanel('<div class="alert alert-dismissible alert-success"><strong>Filename: </strong>' + info._filename+'<br><strong>size: </strong>' + info.size+'<br>'+'<strong>Destination: </strong>'+destFilePathName+"</div>");
 
     //TODO: sanilitse youtube file name so that it can be 
 
@@ -130,24 +117,17 @@ function downloadCaptions(url){
   youtubedl.getSubs(url, options, function(err, files) {
     if (err) throw err;
     setCaptionsStatus(subtitlesDownloadedMessage);
-    console.log('subtitle files downloaded:', files);
+    console.info('subtitle files downloaded:', files);
   });
-
-
 }
 
 /**
  * kickstart downloafing when user clicks download btn
  */
 btnLoadElement.onclick = function(){
-
   var inputValue = getUrlInput();
-  //TODO: some checks on validity of (url) url. 
-  
-  //TODO get user selected file extension 
-  
-  downloadVideo(inputValue, getFileExtension());
-
+  //TODO: some checks on validity of (url) url.   
+  downloadVideo(inputValue);
   if(captionStatus()){
     downloadCaptions(inputValue);
   }
