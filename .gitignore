@@ -5,6 +5,8 @@ dist/
 # app.js in electron folder is generated with browserify using the npm comands.
 electron/app.js
 
+package-lock.json
+
 #ignore all video files
 *.wmv
 *.mpg

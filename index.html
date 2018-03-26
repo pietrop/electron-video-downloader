@@ -9,22 +9,71 @@
 <body>
 
   <div class="container">
-    <h2  >Video downloader</h2>
+   <!--  <h2  >Video downloader</h2> -->
+  <legend>Video Link</legend>
 
     <form action="#">
       <div >
-        <label for="text"  >Add link to a video you want to download</label>
+       
         <input  type="text" id="urlInput" class="form-control"  placeholder="https://youtu.be/9UJzVLXmBG4"> 
+        
+        <small id="fileHelp" class="form-text text-muted">Add link to a video you want to download</small>
       </div>
     </form>
-
     <br>
-    <div class="checkbox">
+
+     <div class="checkbox">
       <label for="checkbox-1">
-        <input id="captionsCheckbox" type="checkbox"   >
-        Download associated captions
+        <input id="videoCheckbox" type="checkbox" checked>
+        Download associated video
       </label>
     </div>
+
+  
+  <legend>Captions</legend>
+     <div class="checkbox">
+      <label for="checkbox-1">
+        <input id="captionsCheckbox" type="checkbox" checked>
+        Download associated captions <code>vtt</code>
+      </label>
+    </div>
+     <small id="fileHelp" class="form-text text-muted">Download assoicate subtitles/captionfiles</small>
+
+  <div class="form-check">
+    <label class="form-check-label">
+      <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadiosAutomatedCaptions" value="option1" checked="">
+       Download associated <strong>automated</strong> captions
+    </label>
+  </div>
+  <div class="form-check">
+  <label class="form-check-label">
+      <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadiosHumanCaptions" value="option2">
+       Download associated <strong>human</strong> captions
+    </label>
+  </div>
+
+  <div class="form-group">
+      <label for="exampleSelect2">Languages </label>
+      <select multiple="" class="form-control" id="languageSelection">
+        <option value="en" selected>English</option>
+        <option value="it">Italian</option>
+        <option value="fr">French</option>
+      </select>
+      <small id="fileHelp" class="form-text text-muted">Press command key to select multiple languages.</small>
+      <br>
+ <small id="fileHelp" class="form-text text-muted">If the language you are looking for is not in the list, click </small>
+
+<button id="extraLanguagesBtn"  class="btn btn-default btn-xs">Load Extra Languages</button>
+      
+  </div>
+     <div class="checkbox">
+      <label for="checkbox-1">
+        <input id="captionsToPlainTextCheckbox" type="checkbox" checked>
+       Convert captions to plain text
+      </label>
+    </div>
+     <small id="fileHelp" class="form-text text-muted">Get a plain text file of the subtitles/captions without timecodes</small>
+
 
 
     <br>
@@ -36,7 +85,7 @@
 
     <div id="captionsStatus" ></div>
 
-    <div id="infoPanel" ></div>
+    <div id="infoPanel"></div>
 
     <!-- <h3>List of supported websites</h3> -->
     <div id="listOfExtractors"></div>
