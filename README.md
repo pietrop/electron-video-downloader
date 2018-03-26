@@ -80,7 +80,7 @@ See [`package.json`](./package.json) scripts section for details on packaging fo
 - [x] add a logo. 
 - [ ] refactor yotube downloader as separate component.
 - [ ] add possibility for user to set default destination folder, as opposed to `Movie` in home folder on osx.
-- [] change `var destDownloadFolder  = app.getPath("videos");` to be a default, corresponds to `Movie` folder.
+- [ ] change `var destDownloadFolder  = app.getPath("videos");` to be a default, corresponds to `Movie` folder.
 	- [ ] with a promt to change dest folder to prefered one, and rember choice, eg in local storage`?`
 
 
