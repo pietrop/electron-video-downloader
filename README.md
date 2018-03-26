@@ -97,3 +97,4 @@ https://github.com/joegesualdo/get-youtube-subtitle-url-node
 
  ## Contributors 
 
+- [Pietro](https://twitter.com/pietropassarell)
