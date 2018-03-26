@@ -17,15 +17,18 @@ The app is built in electron for osx, and uses [youtube-dl](https://rg3.github.i
 ## Usage
 
 - Download latest app from [release section](https://github.com/pietrop/electron-video-downloader/releases) 
+	- if you get the `unidentified developererror` message, [follow these instructions](https://support.apple.com/kb/ph18657?locale=en_US).
 - Add youtube url from youtube `share` functionality 
 - chose app preferences, see screenshot below.
 - click `Download`
 - retrieve downloaed files in `Movie` folder 
 - done :)
 
+![video_downloader](./screenshots/video_downloader.png)
+
 ![video_downloader_loader](./screenshots/video_downloader_loader.png)
 
-![video_downloader](./screenshots/video_downloader.png)
+
 
 
 ## Development 
