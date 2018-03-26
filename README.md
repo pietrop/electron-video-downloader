@@ -84,6 +84,9 @@ See [`package.json`](./package.json) scripts section for details on packaging fo
 	- [ ] with a promt to change dest folder to prefered one, and rember choice, eg in local storage`?`
 
 
+- [ ] Add `human` vs `automated` label to text file of captions to distinguish is downloading both one after the other.
+- [ ] escape emoji, sometimes emojis are in the title, and that's hard to parse/read/save.
+
 <!-- https://github.com/rg3/youtube-dl/blob/master/README.md#readme
 
 https://github.com/rg3/youtube-dl/blob/master/README.md#video-format-options

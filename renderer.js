@@ -201,7 +201,7 @@ btnLoadElement.onclick = function(){
         //for files in array 
         console.info('getCaptionPlainTextOption', files);
         files.forEach(function(f){
-           var parsed = parseYoutubeVtt(openFile(path.join(destDownloadFolder,f)));
+           var parsed = parseYoutubeVtt(openFile(path.join(destDownloadFolder,f )));
            
            parsed = parsed.replace(/\r?\n/g, " ");
            // console.log('parsed', parsed);
@@ -282,3 +282,7 @@ function makeLanguageCodesOptions(ISO6391){
   return results;
 }
 ///////////////
+//https://stackoverflow.com/questions/44738314/escape-a-space-in-a-file-path-in-node-js
+function escapeSpacesInFileName(fileName){
+  return fileName.replace(/(\s+)/g, '\\$1')
+}
