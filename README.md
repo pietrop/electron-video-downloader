@@ -53,7 +53,7 @@ npm run pack:mac
 
 See [`package.json`](./package.json) scripts section for details on packaging for other platforms.
 
-```
+```json
 "pack": "build --dir",
 "pack:mac": "build --dir --mac --x64",
 "pack:linux": "build --dir --linux --x64",
