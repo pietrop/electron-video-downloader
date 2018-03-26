@@ -65,7 +65,7 @@ See [`package.json`](./package.json) scripts section for details on packaging fo
 "build:linux": "build --linux  --x64"
 ```
 
-## possible todo to extend the app: 
+## Possible todo to extend the app: 
 - [x] add check box option for [downloading associated subtitles](https://github.com/przemyslawpluta/node-youtube-dl#downloading-subtitles). 
 - [x] support languages other then english when downloading captions.  
 - [ ] if url is of playlist, then [download playlist](https://github.com/przemyslawpluta/node-youtube-dl#downloading-playlists)
