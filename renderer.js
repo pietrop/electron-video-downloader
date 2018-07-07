@@ -109,7 +109,10 @@ function downloadVideo(url){
         // see here for options https://github.com/rg3/youtube-dl/blob/master/README.md
         ['--format=best'],
         // Additional options can be given for calling `child_process.execFile()`. 
-        { cwd: destDownloadFolder });
+        { 
+          cwd: destDownloadFolder, 
+          maxBuffer: Infinity 
+        });
 
       //listener for video info, to get file name 
       video.on('info', function(info) {

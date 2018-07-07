@@ -98,6 +98,6 @@ https://github.com/rg3/youtube-dl/blob/master/README.md#format-selection -->
 https://github.com/joegesualdo/get-youtube-subtitle-url-node
  -->
 
- ## Contributors 
+## Contributors 
 
 - [Pietro](https://twitter.com/pietropassarell)
