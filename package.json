@@ -1,99 +1,125 @@
 {
-  "name": "video-downloader",
-  "version": "1.0.4",
-  "description": "A minimal Electron application to download videos, eg from youtube",
-  "main": "main.js",
-  "scripts": {
-    "start": "electron .",
-    "pack": "build --dir",
-    "pack:mac": "build --dir --mac --x64",
-    "pack:linux": "build --dir --linux --x64",
-    "pack:win": "build --dir --win --x64",
-    "build": "build",
-    "build:mac": "build --mac --x64",
-    "build:mac_app_store": "echo 'Mac App Store Option Not currently implemented'",
-    "build:win": "build --win nsis-web --x64",
-    "build:linux": "build --linux  --x64"
-  },
-  "repository": "https://github.com/electron/electron-quick-start",
-  "keywords": [
-    "Electron",
-    "video",
-    "github",
-    "youtube",
-    "downloader",
-    "os x"
-  ],
-  "build": {
-    "appId": "org.video.downaloader",
-    "asar": false,
-    "files": [
-      "**/*"
+    "name": "video-downloader",
+    "version": "1.0.5",
+    "description": "A minimal Electron application to download videos, eg from youtube",
+    "main": "main.js",
+    "scripts": {
+        "start": "electron .",
+        "pack": "build --dir",
+        "pack:mac": "build --dir --mac --x64",
+        "pack:linux": "build --dir --linux --x64",
+        "pack:win": "build --dir --win --x64",
+        "build": "build",
+        "build:mac": "build --mac --x64",
+        "build:mac_app_store": "echo 'Mac App Store Option Not currently implemented'",
+        "build:win": "build --win nsis-web --x64",
+        "build:linux": "build --linux  --x64",
+        "build:m:publish:always": "electron-builder -m --publish always"
+    },
+    "repository": "https://github.com/electron/electron-quick-start",
+    "keywords": [
+        "Electron",
+        "video",
+        "github",
+        "youtube",
+        "downloader",
+        "os x"
     ],
-    "copyright": "2017 Pietro Passarelli",
-    "mac": {
-      "category": "public.app-category.productivity",
-      "files": []
-    },
-    "linux": {
-      "category": "",
-      "packageCategory": "GNOME;GTK;VideoEditing;PaperEditing;Transcriptions",
-      "description": "video download Desktop Client for Linux",
-      "target": [
-        "deb",
-        "zip",
-        "AppImage",
-        "rpm"
-      ],
-      "maintainer": "Pietro Passarelli <pietro.passarelli@gmail.com>",
-      "files": []
-    },
-    "deb": {
-      "synopsis": "Video downaloader"
-    },
-    "dmg": {
-      "background": "build/background.png",
-      "icon": "build/icon.icns",
-      "iconSize": 128,
-      "contents": [
-        {
-          "x": 448,
-          "y": 340,
-          "type": "link",
-          "path": "/Applications"
+    "build": {
+        "publish": {
+            "provider": "github",
+            "releaseType": "prerelease",
+            "vPrefixedTagName": false,
+            "owner": "pietrop",
+            "repo": "electron-video-downloader"
         },
-        {
-          "x": 192,
-          "y": 340,
-          "type": "file"
+        "appId": "org.video.downaloader",
+        "asar": false,
+        "directories": {
+            "buildResources": "assets"
+        },
+        "files": [
+            "**/*",
+            "build/**",
+            "!config/",
+            "!assets/",
+            "!spec/",
+            "!project_page/",
+            "!vendor/",
+            "!docs/",
+            "!dist/",
+            "!icons/",
+            "node_modules/**/*"
+        ],
+        "copyright": "2017 Pietro Passarelli",
+        "mac": {
+            "category": "public.app-category.productivity",
+            "files": [],
+            "target": [{
+                "target": "dmg",
+                "arch": [
+                    "x64"
+                ]
+            }]
+        },
+        "linux": {
+            "category": "",
+            "packageCategory": "GNOME;GTK;VideoEditing;PaperEditing;Transcriptions",
+            "description": "video download Desktop Client for Linux",
+            "target": [
+                "deb",
+                "zip",
+                "AppImage",
+                "rpm"
+            ],
+            "maintainer": "Pietro Passarelli <pietro.passarelli@gmail.com>",
+            "files": []
+        },
+        "deb": {
+            "synopsis": "Video downaloader"
+        },
+        "dmg": {
+            "background": "build/background.png",
+            "icon": "build/icon.icns",
+            "iconSize": 128,
+            "contents": [{
+                    "x": 448,
+                    "y": 340,
+                    "type": "link",
+                    "path": "/Applications"
+                },
+                {
+                    "x": 192,
+                    "y": 340,
+                    "type": "file"
+                }
+            ]
+        },
+        "win": {
+            "target": "nsis",
+            "icon": "build/icon.ico",
+            "files": [
+                "node_modules/ffmpeg-static/bin/win/${arch}/ffmpeg",
+                "!node_modules/ffmpeg-static/bin/win/ia32${/*}",
+                "!node_modules/ffmpeg-static/bin/linux${/*}",
+                "!node_modules/ffmpeg-static/bin/mac${/*}"
+            ]
+        },
+        "nsis": {
+            "perMachine": true,
+            "oneClick": false
         }
-      ]
     },
-    "win": {
-      "target": "nsis",
-      "icon": "build/icon.ico",
-      "files": [
-        "node_modules/ffmpeg-static/bin/win/${arch}/ffmpeg",
-        "!node_modules/ffmpeg-static/bin/win/ia32${/*}",
-        "!node_modules/ffmpeg-static/bin/linux${/*}",
-        "!node_modules/ffmpeg-static/bin/mac${/*}"
-      ]
+    "author": "Pietro Passarelli <pietro.passarelli@gmail.com> (http://pietropassarelli.com)",
+    "license": "MIT",
+    "devDependencies": {
+        "electron": "^5.0.3",
+        "electron-builder": "^20.43.0"
     },
-    "nsis": {
-      "perMachine": true,
-      "oneClick": false
+    "dependencies": {
+        "iso-639-1": "^2.0.3",
+        "node-webvtt-youtube": "^1.0.0",
+        "path": "^0.12.7",
+        "youtube-dl": "^1.12.2"
     }
-  },
-  "author": "Pietro Passarelli <pietro.passarelli@gmail.com> (http://pietropassarelli.com)",
-  "license": "MIT",
-  "devDependencies": {
-    "electron": "^5.0.3",
-    "electron-builder": "^20.43.0"
-  },
-  "dependencies": {
-    "iso-639-1": "^2.0.3",
-    "node-webvtt-youtube": "^1.0.0",
-    "path": "^0.12.7",
-    "youtube-dl": "^1.12.2"
-  }
 }
