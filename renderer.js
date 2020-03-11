@@ -19,6 +19,7 @@ setDownloadFolderDestElement(destDownloadFolder)
 var urlInputElement = document.getElementById("urlInput");
 var btnLoadElement = document.getElementById("btnLoad");
 var setDownloadDestBtnElement = document.getElementById("setDownloadDestBtn");
+var downloadProgressBarEl = document.getElementById("downloadProgressBar")
 
 var infoPanelElemnet = document.getElementById("infoPanel");
 var statusElement = document.getElementById("status");
@@ -102,6 +103,16 @@ function isDone(bool) {
 
 function setDownloadFolderDestElement(text) {
     downloadFolderDestElement.innerText = text;
+}
+
+function setDownloadProgressBar(percentage){
+        downloadProgressBarEl.innerHTML = `<div class="progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width:${percentage}%;" aria-valuenow="${percentage}" aria-valuemin="0" aria-valuemax="100">${percentage}%</div>
+      </div>`
+}
+
+function resetDownloadFolderDestElement (){
+    downloadProgressBarEl.innerHTML =""
 }
 // urlInputElement.oninput = function(){
 // setCaptionsStatus("");
@@ -212,7 +223,8 @@ function downloadVideo(url) {
                 // process.stdout.write(percent + '%')
                 // console.log(percent)
                 // setStatusElement(`${percent}%`, false);
-                setStatusElement(`${percent}% | ${currentFileMessage}`, false);
+                setStatusElement(`${currentFileMessage}`, false);
+                setDownloadProgressBar(percent);
             }
         })
 
@@ -220,6 +232,7 @@ function downloadVideo(url) {
             console.info("done downloading video file");
             // TODO: replace with update Div symbol
             setStatusElement(finishedDownloadingMessage, true);
+            resetDownloadFolderDestElement()
         });
 
         video.on('next', playlist)

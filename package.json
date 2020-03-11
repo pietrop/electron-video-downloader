@@ -83,7 +83,7 @@
         },
         "dmg": {
             "background": "build/background.png",
-            "icon": "build/icon.icns",
+            "icon": "build/download-video.png",
             "iconSize": 128,
             "contents": [{
                     "x": 448,
@@ -100,7 +100,7 @@
         },
         "win": {
             "target": "nsis",
-            "icon": "build/icon.png",
+            "icon": "build/download-video.png",
             "files": [
                 "node_modules/ffmpeg-static/bin/win/${arch}/ffmpeg",
                 "!node_modules/ffmpeg-static/bin/win/ia32${/*}",
