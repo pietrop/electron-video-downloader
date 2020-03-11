@@ -34,8 +34,8 @@ var captionsToPlainTextCheckboxElement = document.getElementById("captionsToPlai
 // messages
 var downloadingMessage = 'Downloading Video...';
 var downloadingPlaylistMessage = 'Downloading Playlist...';
-var finishedDownloadingMessage = `Finished downloading Video in ${destDownloadFolder}`;
-var subtitlesDownloadedMessage = `subtitle files downloaded in ${destDownloadFolder}`;
+var finishedDownloadingMessage = `Finished downloading Video`;
+var subtitlesDownloadedMessage = `Finished downloading subtitle`;
 var subtitlesDownloadingMessage = 'Downloading subtitles files ...';
 var subtitlesNotAviableMessage = 'Could not retrieve subtitles at this time.';
 // set element for  select file format.
