@@ -13,11 +13,13 @@ const ISO6391 = require('iso-639-1');
 const webvtt = require('node-webvtt-youtube');
 
 let destDownloadFolder = app.getPath("videos");
-
+var downloadFolderDestElement = document.getElementById("downloadFolderDest");
+setDownloadFolderDestElement(destDownloadFolder)
 // elements
 var urlInputElement = document.getElementById("urlInput");
 var btnLoadElement = document.getElementById("btnLoad");
 var setDownloadDestBtnElement = document.getElementById("setDownloadDestBtn");
+
 var infoPanelElemnet = document.getElementById("infoPanel");
 var statusElement = document.getElementById("status");
 var captionsCheckboxElement = document.getElementById("captionsCheckbox");
@@ -98,6 +100,9 @@ function isDone(bool) {
     }
 }
 
+function setDownloadFolderDestElement(text) {
+    downloadFolderDestElement.innerText = text;
+}
 // urlInputElement.oninput = function(){
 // setCaptionsStatus("");
 // setStatusElement("");
@@ -135,7 +140,13 @@ function downloadVideo(url) {
                 var destFilePathName = path.join(destDownloadFolder, info._filename);
 
                 // update GUI with info on the file being downloaded
-                setInfoPanel(`title: ${info.title} | filename: ${info._filename} | size:${info.size} | path:${destFilePathName}`);
+                setInfoPanel(`title: ${
+                    info.title
+                } | filename: ${
+                    info._filename
+                } | size:${
+                    info.size
+                } | path:${destFilePathName}`);
 
                 // TODO: sanilitse youtube file name so that it can be
                 // save file locally
@@ -170,8 +181,18 @@ function downloadVideo(url) {
             info.description
             info.title
             // currentFileMessage = `playlist: ${info.playlist} |playlist_id: ${info.playlist_id}| title: ${info.title} | filename: ${info._filename} | size:${info.size} | path:${destFilePathName} | description: ${ info.description}`
-            currentFileMessage = `playlist: ${info.playlist} |playlist_id: ${info.playlist_id}| title: ${info.title} | filename: ${info._filename} | size:${info.size} | path:${destFilePathName} `
-          // TODO: save info.description with same name as the file with .descrition 
+            currentFileMessage = `playlist: ${
+                info.playlist
+            } |playlist_id: ${
+                info.playlist_id
+            }| title: ${
+                info.title
+            } | filename: ${
+                info._filename
+            } | size:${
+                info.size
+            } | path:${destFilePathName} `
+            // TODO: save info.description with same name as the file with .descrition
             size = info.size
             // let output = path.join(__dirname + '/', size + '.mp4')
             // video.pipe(fs.createWriteStream(output))
@@ -196,9 +217,9 @@ function downloadVideo(url) {
         })
 
         video.on('end', function () {
-          console.info("done downloading video file");
-          // TODO: replace with update Div symbol
-          setStatusElement(finishedDownloadingMessage, true);
+            console.info("done downloading video file");
+            // TODO: replace with update Div symbol
+            setStatusElement(finishedDownloadingMessage, true);
         });
 
         video.on('next', playlist)
@@ -251,43 +272,45 @@ function downloadCaptions(url, getAutomaticCations, languagesList, cb) {
  */
 btnLoadElement.onclick = function () {
     var inputValue = getUrlInput();
-    // TODO: add some checks on validity of (url) url.
+    if (inputValue) {
+        // TODO: add some checks on validity of (url) url.
 
-    // DOWNLOAD CAPTIONS
-    if (captionStatus()) { // automated vs human captions
-        var getAutomaticCations;
-        if (optionsRadiosHumanCaptionsElement.checked) {
-            getAutomaticCations = false;
-        } else if (optionsRadiosAutomatedCaptionsElement.checked) {
-            getAutomaticCations = true;
+        // DOWNLOAD CAPTIONS
+        if (captionStatus()) { // automated vs human captions
+            var getAutomaticCations;
+            if (optionsRadiosHumanCaptionsElement.checked) {
+                getAutomaticCations = false;
+            } else if (optionsRadiosAutomatedCaptionsElement.checked) {
+                getAutomaticCations = true;
+            }
+
+            // list of languages
+            var languagesList = getSelectedValues(languageSelectionElement);
+
+            downloadCaptions(inputValue, getAutomaticCations, languagesList, function (files) {
+                console.info("Downloaded captions", files);
+                if (getCaptionPlainTextOption()) { // for files in array
+                    console.info('getCaptionPlainTextOption', files);
+                    files.forEach(function (f) {
+                        var parsed = parseYoutubeVtt(openFile(path.join(destDownloadFolder, f)));
+
+                        parsed = parsed.replace(/\r?\n/g, " ");
+                        // console.log('parsed', parsed);
+                        var destFilePathName = path.join(destDownloadFolder, f + ".txt");
+
+                        fs.writeFileSync(destFilePathName, parsed);
+                        console.info("writing plain text files", destFilePathName, parsed);
+                    });
+                    // convert vtt to plain text
+
+                    // write plain text to destination folder.
+                }
+            });
         }
 
-        // list of languages
-        var languagesList = getSelectedValues(languageSelectionElement);
-
-        downloadCaptions(inputValue, getAutomaticCations, languagesList, function (files) {
-            console.info("Downloaded captions", files);
-            if (getCaptionPlainTextOption()) { // for files in array
-                console.info('getCaptionPlainTextOption', files);
-                files.forEach(function (f) {
-                    var parsed = parseYoutubeVtt(openFile(path.join(destDownloadFolder, f)));
-
-                    parsed = parsed.replace(/\r?\n/g, " ");
-                    // console.log('parsed', parsed);
-                    var destFilePathName = path.join(destDownloadFolder, f + ".txt");
-
-                    fs.writeFileSync(destFilePathName, parsed);
-                    console.info("writing plain text files", destFilePathName, parsed);
-                });
-                // convert vtt to plain text
-
-                // write plain text to destination folder.
-            }
-        });
+        // DOWNLOAD VIDEO
+        downloadVideo(inputValue);
     }
-
-    // DOWNLOAD VIDEO
-    downloadVideo(inputValue);
 };
 
 
@@ -334,25 +357,26 @@ loadExtraLanguagesOptions.onclick = function () {
     populateLanguageCodeOptions();
 };
 
-setDownloadDestBtnElement.onclick = function(){
-  console.log('setDownloadDestBtnElement',destDownloadFolder);
-  const result = dialog.showOpenDialog({
-    properties: ['openDirectory']
-  },(result, error)=>{
+setDownloadDestBtnElement.onclick = function () {
+    console.log('setDownloadDestBtnElement', destDownloadFolder);
+    const result = dialog.showOpenDialog({
+        properties: ['openDirectory']
+    }, (result, error) => {
 
-  // })
-  // .then(result => {
-    console.log('result',result)
-    if(error){
-      console.error('result.canceled',result.canceled)
-    }else{
-      destDownloadFolder = result[0]
-      console.log('destDownloadFolder',destDownloadFolder)
-    }
+        // })
+        // .then(result => {
+        console.log('result', result)
+        if (error) {
+            console.error('result.canceled', result.canceled)
+        } else {
+            destDownloadFolder = result[0]
+            console.log('destDownloadFolder', destDownloadFolder)
+            setDownloadFolderDestElement(destDownloadFolder)
+        }
 
-  // }).catch(err => {
-    // console.log(err)
-  })
+        // }).catch(err => {
+        // console.log(err)
+    })
 
 
 }
