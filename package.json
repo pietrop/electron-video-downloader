@@ -1,6 +1,6 @@
 {
     "name": "video-downloader",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "description": "A minimal Electron application to download videos, eg from youtube",
     "main": "main.js",
     "scripts": {
@@ -100,7 +100,7 @@
         },
         "win": {
             "target": "nsis",
-            "icon": "build/icon.ico",
+            "icon": "build/icon.png",
             "files": [
                 "node_modules/ffmpeg-static/bin/win/${arch}/ffmpeg",
                 "!node_modules/ffmpeg-static/bin/win/ia32${/*}",
