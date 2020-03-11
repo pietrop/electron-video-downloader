@@ -9,6 +9,9 @@ env:
     # from https://www.electron.build/configuration/publish#githuboptions
     - ELECTRON_CACHE=$HOME/.cache/electron
     - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
+    - PUBLISH_FOR_PULL_REQUEST=false
+    - USE_HARD_LINKS=false
+    - YARN_GPG=no
 
 # specifying npm version as
 # by default travis seemed to sue 4.2.0
@@ -20,11 +23,16 @@ install:
   - npm --version
   - npm install
 
+cache:
+  npm: true
+  node: true
+
 script:
-  - npm run build:mlw:publish:always;
+  - travis_wait 60 npm run build:mwl:publish:always;
   - ls ./dist;
-  - find . | grep mac.zip;
-  - find . | grep x86_64.AppImage;
+  - find . | grep .dmg;
+  - find . | grep .AppImage;
+  - find . | grep .exe;
 
 branches:
   except:
