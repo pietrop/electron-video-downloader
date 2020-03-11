@@ -14,7 +14,8 @@
         "build:mac_app_store": "echo 'Mac App Store Option Not currently implemented'",
         "build:win": "build --win nsis-web --x64",
         "build:linux": "build --linux  --x64",
-        "build:m:publish:always": "electron-builder -m --publish always"
+        "build:m:publish:always": "electron-builder -m --publish always",
+        "build:mlw:publish:always":"electron-builder -mlw --publish always"
     },
     "repository": "https://github.com/electron/electron-quick-start",
     "keywords": [
