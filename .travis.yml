@@ -21,7 +21,7 @@ install:
   - npm install
 
 script:
-  - npm run build:ml:publish:always;
+  - npm run build:mlw:publish:always;
   - ls ./dist;
   - find . | grep mac.zip;
   - find . | grep x86_64.AppImage;
