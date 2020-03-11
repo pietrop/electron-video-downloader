@@ -68,7 +68,7 @@ See [`package.json`](./package.json) scripts section for details on packaging fo
 ## Possible todo to extend the app: 
 - [x] add check box option for [downloading associated subtitles](https://github.com/przemyslawpluta/node-youtube-dl#downloading-subtitles). 
 - [x] support languages other then english when downloading captions.  
-- [ ] if url is of playlist, then [download playlist](https://github.com/przemyslawpluta/node-youtube-dl#downloading-playlists)
+- [x] if url is of playlist, then [download playlist](https://github.com/przemyslawpluta/node-youtube-dl#downloading-playlists)
 - [ ] show [list of extractors in app](https://github.com/przemyslawpluta/node-youtube-dl#getting-the-list-of-extractors) _half implemented, but vimeo not working_
 - [ ] _optional_ a video preview for select url.  
 - [ ] figure out a way to support direct url to video, eg not from supported extractors.  
@@ -80,8 +80,9 @@ See [`package.json`](./package.json) scripts section for details on packaging fo
 - [x] add a logo. 
 - [ ] refactor yotube downloader as separate component.
 - [ ] add possibility for user to set default destination folder, as opposed to `Movie` in home folder on osx.
-- [ ] change `var destDownloadFolder  = app.getPath("videos");` to be a default, corresponds to `Movie` folder.
-	- [ ] with a promt to change dest folder to prefered one, and rember choice, eg in local storage`?`
+- [x] change `var destDownloadFolder  = app.getPath("videos");` to be a default, corresponds to `Movie` folder.
+	- [x] with a promt to change dest folder to prefered one, 
+	- [ ] and rember choice, eg in local storage`?`
 
 
 - [ ] Add `human` vs `automated` label to text file of captions to distinguish is downloading both one after the other.
