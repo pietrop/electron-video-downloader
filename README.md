@@ -17,7 +17,10 @@ The app is built in electron for osx, and uses [youtube-dl](https://rg3.github.i
 ## Usage
 
 - Download latest app from [release section](https://github.com/pietrop/electron-video-downloader/releases) 
-	- if you get the `unidentified developererror` message, [follow these instructions](https://support.apple.com/kb/ph18657?locale=en_US).
+	-  For mac, download the `.dmg` file 
+	- open it, and drag the app in the application folder
+	- in the application folder, the first time, right click to the app to open it
+	- from then on after the first time you can just double click
 - Add youtube url from youtube `share` functionality 
 - chose app preferences, see screenshot below.
 - click `Download`
