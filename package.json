@@ -1,6 +1,6 @@
 {
     "name": "video-downloader",
-    "version": "1.0.9",
+    "version": "1.0.10",
     "description": "A minimal Electron application to download videos, eg from youtube",
     "main": "main.js",
     "scripts": {
@@ -14,7 +14,7 @@
         "build:mac_app_store": "echo 'Mac App Store Option Not currently implemented'",
         "build:win": "build --win nsis-web --x64",
         "build:linux": "build --linux  --x64",
-        "build:mwl" : "electron-builder -mwl",
+        "build:mwl": "electron-builder -mwl",
         "build:m:publish:always": "electron-builder -m --publish always",
         "build:ml:publish:always": "electron-builder -ml --publish always",
         "build:mwl:publish:always": "electron-builder -mwl --publish always"
@@ -58,12 +58,14 @@
         "mac": {
             "category": "public.app-category.productivity",
             "files": [],
-            "target": [{
-                "target": "dmg",
-                "arch": [
-                    "x64"
-                ]
-            }]
+            "target": [
+                {
+                    "target": "dmg",
+                    "arch": [
+                        "x64"
+                    ]
+                }
+            ]
         },
         "linux": {
             "category": "",
@@ -85,7 +87,8 @@
             "background": "build/background.png",
             "icon": "build/download-video.png",
             "iconSize": 128,
-            "contents": [{
+            "contents": [
+                {
                     "x": 448,
                     "y": 340,
                     "type": "link",
@@ -123,6 +126,6 @@
         "iso-639-1": "^2.0.3",
         "node-webvtt-youtube": "^1.0.0",
         "path": "^0.12.7",
-        "youtube-dl": "^1.12.2"
+        "youtube-dl": "^3.1.0"
     }
 }
