@@ -1,6 +1,6 @@
 {
     "name": "video-downloader",
-    "version": "1.0.12",
+    "version": "1.0.13",
     "description": "A minimal Electron application to download videos, eg from youtube",
     "main": "main.js",
     "scripts": {
@@ -120,7 +120,7 @@
     "license": "MIT",
     "devDependencies": {
         "electron": "^11.1.1",
-        "electron-builder": "^20.43.0"
+        "electron-builder": "^22.9.1"
     },
     "dependencies": {
         "iso-639-1": "^2.0.3",
