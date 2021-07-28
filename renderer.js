@@ -7,6 +7,9 @@ const fs = require('fs');
 const path = require('path');
 const youtubedl = require('youtube-dl');
 const {app, dialog} = require('electron').remote;
+const ipcRenderer = require('electron').ipcRenderer;
+
+
 
 const ISO6391 = require('iso-639-1');
 
@@ -371,28 +374,11 @@ loadExtraLanguagesOptions.onclick = function () {
 };
 
 setDownloadDestBtnElement.onclick = function () {
-    console.log('setDownloadDestBtnElement', destDownloadFolder);
-    const result = dialog.showOpenDialog({
-        properties: ['openDirectory']
-    }, (result, error) => {
-
-        // })
-        // .then(result => {
-        console.log('result', result)
-        if (error) {
-            console.error('result.canceled', result.canceled)
-        } else {
-            destDownloadFolder = result[0]
-            console.log('destDownloadFolder', destDownloadFolder)
-            setDownloadFolderDestElement(destDownloadFolder)
-        }
-
-        // }).catch(err => {
-        // console.log(err)
-    })
-
-
+   const newDir =  ipcRenderer.sendSync('selectDirectory');
+   destDownloadFolder = newDir;
+   setDownloadFolderDestElement(newDir)
 }
+
 
 function populateLanguageCodeOptions() {
     languageSelectionElement.innerHTML = makeLanguageCodesOptions(ISO6391);

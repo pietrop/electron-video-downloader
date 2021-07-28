@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu } = require('electron');
+const { app, BrowserWindow, Menu , ipcMain, dialog} = require('electron');
 // Module to control application life.
 
 const path = require('path');
@@ -150,6 +150,17 @@ app.on('activate', function () {
   if (mainWindow === null) {
     createWindow();
   }
+});
+
+ipcMain.on('selectDirectory', async function(event, arg) {
+     const result = await dialog.showOpenDialog({
+        properties: ['openDirectory']
+    })
+
+    if(!result.canceled){
+      event.returnValue = result.filePaths[0]
+    }
+  
 });
 
 // In this file you can include the rest of your app's specific main process
