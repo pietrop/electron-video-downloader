@@ -1,6 +1,6 @@
 {
     "name": "video-downloader",
-    "version": "1.0.15-alpha.0",
+    "version": "1.0.16",
     "description": "A minimal Electron application to download videos, eg from YouTube",
     "main": "main.js",
     "scripts": {
@@ -11,6 +11,7 @@
         "pack:win": "build --dir --win --x64",
         "build": "electron-builder build",
         "build:mac": "electron-builder build --mac --x64 --arm64",
+        "build:mac:arm64": "electron-builder build --mac --arm64",
         "build:mac_app_store": "echo 'Mac App Store Option Not currently implemented'",
         "build:win": "build --win nsis-web --x64",
         "build:linux": "build --linux  --x64",
