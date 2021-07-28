@@ -1,6 +1,6 @@
 {
     "name": "video-downloader",
-    "version": "1.0.15",
+    "version": "1.0.15-alpha.0",
     "description": "A minimal Electron application to download videos, eg from YouTube",
     "main": "main.js",
     "scripts": {
