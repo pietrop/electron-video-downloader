@@ -16,6 +16,7 @@ function createWindow() {
     // https://github.com/electron/electron/issues/17241
     webPreferences: {
       nodeIntegration: true,
+      contextIsolation: false,
       enableRemoteModule: true,
     },
   });
