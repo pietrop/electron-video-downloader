@@ -41,7 +41,7 @@
         "appId": "org.video.downloader",
         "asar": false,
         "directories": {
-            "buildResources": "assets"
+            "buildResources": "build"
         },
         "files": [
             "**/*",
@@ -84,7 +84,7 @@
         },
         "dmg": {
             "background": "build/background.png",
-            "icon": "build/download-video.png",
+            "icon": "build/download-video.icns",
             "iconSize": 128,
             "contents": [
                 {
