@@ -38,7 +38,7 @@
             "owner": "pietrop",
             "repo": "electron-video-downloader"
         },
-        "appId": "org.video.downaloader",
+        "appId": "org.video.downloader",
         "asar": false,
         "directories": {
             "buildResources": "assets"
@@ -64,7 +64,8 @@
                 {
                     "target": "dmg",
                     "arch": [
-                        "x64"
+                        "x64",
+                        "arm64"
                     ]
                 }
             ]
@@ -74,16 +75,12 @@
             "packageCategory": "GNOME;GTK;VideoEditing;PaperEditing;Transcriptions",
             "description": "video download Desktop Client for Linux",
             "target": [
-                "deb",
-                "zip",
-                "AppImage",
-                "rpm"
+                "AppImage"
             ],
-            "maintainer": "Pietro Passarelli <pietro.passarelli@gmail.com>",
-            "files": []
+            "maintainer": "Pietro Passarelli <pietro.passarelli@gmail.com>"
         },
         "deb": {
-            "synopsis": "Video downaloader"
+            "synopsis": "Video downloader"
         },
         "dmg": {
             "background": "build/background.png",
@@ -104,7 +101,17 @@
             ]
         },
         "win": {
-            "target": "nsis",
+            "artifactName": "${productName}-${version}-${arch}.${ext}",
+            "target": [
+                {
+                  "target": "portable",
+                  "arch": [
+                    "x64",
+                    "arm64",
+                    "ia32"
+                  ]
+                }
+              ],
             "icon": "build/download-video.png",
             "files": [
                 "node_modules/ffmpeg-static/bin/win/${arch}/ffmpeg",
@@ -112,10 +119,6 @@
                 "!node_modules/ffmpeg-static/bin/linux${/*}",
                 "!node_modules/ffmpeg-static/bin/mac${/*}"
             ]
-        },
-        "nsis": {
-            "perMachine": true,
-            "oneClick": false
         }
     },
     "author": "Pietro Passarelli <pietro.passarelli@gmail.com> (http://pietropassarelli.com)",
