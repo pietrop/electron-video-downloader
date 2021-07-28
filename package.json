@@ -15,9 +15,11 @@
         "build:win": "build --win nsis-web --x64",
         "build:linux": "build --linux  --x64",
         "build:mwl": "electron-builder -mwl",
-        "build:m:publish:always": "electron-builder -m --publish always",
         "build:ml:publish:always": "electron-builder -ml --publish always",
-        "build:mwl:publish:always": "electron-builder -mwl --publish always"
+        "build:mwl:publish:always": "electron-builder -mwl --publish always",
+        "build:l:publish:always": "electron-builder -l --publish always",
+        "build:m:publish:always": "electron-builder -m  --x64 --arm64 --publish always",
+        "build:w:publish:always": "electron-builder -w --x64 --ia32 --publish always",
     },
     "repository": "https://github.com/electron/electron-quick-start",
     "keywords": [

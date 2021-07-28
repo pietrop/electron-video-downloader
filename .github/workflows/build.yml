@@ -1,0 +1,78 @@
+name: Build Electron Releases
+on:
+  push:
+    branches:
+      - master # TODO: you can tweak this to run only a specific branch of your choosing
+jobs:
+  # Mac version M1 arm64 + older
+  build_on_mac:
+    runs-on: macOS-latest
+    steps:
+    - uses: actions/checkout@master
+      with:
+        ref: master # TODO: you can tweak this to run only a specific branch of your choosing
+    - uses: actions/setup-node@master
+      with:
+        node-version: 14
+    - name: Install dependencies
+      run: npm install
+    - name: Build Electron
+      env:
+        ELECTRON: true
+        PUBLISH_FOR_PULL_REQUEST: false
+        ELECTRON_CACHE: $HOME/.cache/electron
+        ELECTRON_BUILDER_CACHE: $HOME/.cache/electron-builder
+        USE_HARD_LINKS: false
+        YARN_GPG: no
+        GITHUB_TOKEN: ${{ secrets.github_token }}
+      run: npm run build:m:publish:always # your npm script in package.json to run electron builder for mac
+    - name: see directory
+      run: ls ./dist
+  # Linux version
+  build_on_linux:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+      with:
+        ref: master # TODO: you can tweak this to run only a specific branch of your choosing
+    - uses: actions/setup-node@master
+      with:
+        node-version: 14
+    - name: Install dependencies
+      run: npm install
+    - name: Build Electron
+      env:
+        ELECTRON: true
+        PUBLISH_FOR_PULL_REQUEST: false
+        ELECTRON_CACHE: $HOME/.cache/electron
+        ELECTRON_BUILDER_CACHE: $HOME/.cache/electron-builder
+        USE_HARD_LINKS: false
+        YARN_GPG: no
+        GITHUB_TOKEN: ${{ secrets.github_token }}
+      run: npm run build:l:publish:always # your npm script in package.json to run electron builder for linux
+    - name: see directory
+      run: ls ./dist
+  # Windows version
+  build_on_win:
+    runs-on: windows-2016
+    steps:
+    - uses: actions/checkout@master
+      with:
+        ref:  master # TODO: you can tweak this to run only a specific branch of your choosing  
+    - uses: actions/setup-node@master
+      with:
+        node-version: 14
+    - name: Install dependencies
+      run: npm install
+    - name: Build Electron on Windows
+      env:
+        ELECTRON: true
+        PUBLISH_FOR_PULL_REQUEST: false
+        ELECTRON_CACHE: $HOME/.cache/electron
+        ELECTRON_BUILDER_CACHE: $HOME/.cache/electron-builder
+        USE_HARD_LINKS: false
+        YARN_GPG: no
+        GITHUB_TOKEN: ${{ secrets.github_token }}
+      run: npm run build:w:publish:always # your npm script in package.json to run electron builder for windows
+    - name: see directory
+      run: ls .\dist\squirrel-windows
