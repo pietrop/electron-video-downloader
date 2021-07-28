@@ -19,7 +19,7 @@
         "build:mwl:publish:always": "electron-builder -mwl --publish always",
         "build:l:publish:always": "electron-builder -l --publish always",
         "build:m:publish:always": "electron-builder -m  --x64 --arm64 --publish always",
-        "build:w:publish:always": "electron-builder -w --x64 --ia32 --publish always",
+        "build:w:publish:always": "electron-builder -w --x64 --ia32 --publish always"
     },
     "repository": "https://github.com/electron/electron-quick-start",
     "keywords": [
